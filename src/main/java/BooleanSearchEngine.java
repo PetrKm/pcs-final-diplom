@@ -30,10 +30,11 @@ public class BooleanSearchEngine implements SearchEngine {
                     }
                     freqs.put(word.toLowerCase(), freqs.getOrDefault(word.toLowerCase(), 0) + 1);
                 }
+
                 int count;
                 for (var w : freqs.keySet()) {
                     String wordToLowerCase = w.toLowerCase();
-                    if (freqs.get(wordToLowerCase) != null) {
+                    if (freqs.containsKey(wordToLowerCase)) {
                         count = freqs.get(wordToLowerCase);
                         wordsInPdfs.computeIfAbsent(wordToLowerCase, k -> new ArrayList<>()).add(
                                 new PageEntry(filePdf.getName(), i, count));
@@ -48,7 +49,7 @@ public class BooleanSearchEngine implements SearchEngine {
     public List<PageEntry> search(String word) {
         List<PageEntry> resultSearch = new ArrayList<>();
         String wordToLowerCase = word.toLowerCase();
-        if (wordsInPdfs.get(wordToLowerCase) != null) {
+        if (wordsInPdfs.containsKey(wordToLowerCase)) {
             for (PageEntry pageEntry : wordsInPdfs.get(wordToLowerCase)) {
                 resultSearch.add(pageEntry);
             }

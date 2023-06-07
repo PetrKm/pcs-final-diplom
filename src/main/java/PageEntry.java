@@ -13,7 +13,7 @@ public class PageEntry implements Comparable<PageEntry> {
 
     @Override
     public int compareTo(PageEntry o) {
-        return Integer.compare(count, o.count);
+        return Integer.compare(o.count, count);
     }
 
     @Override
