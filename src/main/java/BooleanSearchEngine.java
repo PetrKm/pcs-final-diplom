@@ -36,12 +36,14 @@ public class BooleanSearchEngine implements SearchEngine {
                     String wordToLowerCase = w.toLowerCase();
                     if (freqs.containsKey(wordToLowerCase)) {
                         count = freqs.get(wordToLowerCase);
-                        wordsInPdfs.computeIfAbsent(wordToLowerCase, k -> new ArrayList<>()).add(
-                                new PageEntry(filePdf.getName(), i, count));
+                        wordsInPdfs.computeIfAbsent(wordToLowerCase, k -> new ArrayList<>()).add(new PageEntry(filePdf.getName(), i, count));
                     }
                 }
                 freqs.clear();
             }
+        }
+        for (var wordSortByCount : wordsInPdfs.values()) {
+            Collections.sort(wordSortByCount);
         }
     }
 
@@ -54,7 +56,6 @@ public class BooleanSearchEngine implements SearchEngine {
                 resultSearch.add(pageEntry);
             }
         }
-        Collections.sort(resultSearch);
         return resultSearch;
     }
 }
